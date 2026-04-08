@@ -1,0 +1,20 @@
+{
+  "name": "Together Health",
+  "short_name": "T-Health",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#EAEFEF",
+  "icons": [
+    {
+      "src": "app-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "app-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
