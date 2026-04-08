@@ -7,7 +7,7 @@
   "theme_color": "#1A1D1D",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/8157/8157118.png",
+      "src": "app-icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

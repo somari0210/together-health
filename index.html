@@ -14,9 +14,8 @@
             --point-light: #45D1E8;  
             --text-main: #EAEFEF;    
             
-            /* [수정] 이진(SO)과 진영(KIM)의 색상을 서로 맞바꿈 */
-            --color-so: #FFEE58;    /* 이진 (이제 노란색) */
-            --color-kim: #45D1E8;   /* 진영 (이제 하늘색) */
+            --color-so: #FFEE58;    
+            --color-kim: #45D1E8;   
             
             --pixel-orange: #FF8C5A; 
             --pixel-pink: #E84A7A;   
@@ -36,6 +35,50 @@
             border-left: 1px solid var(--point-mid);
             border-right: 1px solid var(--point-mid);
         }
+
+        .vital-loader {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 5000; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+        }
+
+        .pixel-heart {
+            font-size: 3rem; margin-bottom: 20px;
+            animation: heartBeat 0.8s infinite;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); opacity: 0.8; }
+            15% { transform: scale(1.2); opacity: 1; }
+            30% { transform: scale(1); opacity: 0.8; }
+            45% { transform: scale(1.15); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        .ecg-container {
+            width: 200px; height: 40px; position: relative; overflow: hidden;
+            border-bottom: 2px solid var(--point-mid);
+        }
+
+        .ecg-line {
+            position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, var(--point-light), transparent);
+            clip-path: polygon(0% 50%, 40% 50%, 45% 10%, 50% 90%, 55% 50%, 100% 50%, 100% 55%, 55% 55%, 50% 95%, 45% 5%, 40% 55%, 0% 55%);
+            animation: ecgScroll 1.5s infinite linear;
+        }
+
+        @keyframes ecgScroll {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .loading-text {
+            margin-top: 20px; font-size: 0.7rem; color: var(--point-light);
+            letter-spacing: 3px; font-family: monospace;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
         
         .header { 
             background-color: var(--point-deep); 
@@ -52,7 +95,6 @@
             letter-spacing: 1px;
         }
 
-        /* --- [디자인] 레트로 픽셀 로그인 화면 --- */
         @keyframes scanline { 0% { transform: translateY(0); } 100% { transform: translateY(100dvh); } }
         @keyframes glitch { 
             0% { text-shadow: 2px 0 var(--pixel-pink), -2px 0 var(--point-light); }
@@ -63,7 +105,8 @@
         .login-overlay { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
             background: #080a0a; z-index: 2000; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; 
+            display: none; 
+            flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; 
             overflow: hidden;
         }
         .login-overlay::before {
@@ -92,7 +135,6 @@
             text-align: center; font-size: 1.2rem; outline: none; 
         }
 
-        /* --- [디자인 유지] 팝업 & 페이지 공통 --- */
         .modal-overlay { display: none; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 90%; z-index: 3000; transition: top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); justify-content: center; }
         .modal-overlay.show { display: flex; top: 20px; }
         .streak-modal { background: rgba(26, 29, 29, 0.9); backdrop-filter: blur(10px); width: 100%; padding: 15px; border-radius: 0 !important; border: 1px solid var(--pixel-pink); display: flex; align-items: center; gap: 12px; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
@@ -112,23 +154,23 @@
             border: 1px solid var(--point-mid); 
         }
 
-        /* --- [홈 탭] --- */
+        /* --- [수정] 텍스트 입력창 및 버튼 영역 고정 (flex-shrink: 0) --- */
         #homePage textarea, #homePage .submit-btn, #homePage .feed-item { border-radius: 0 !important; }
-        textarea { width: 100%; height: 80px; background: #000; border: 1px solid var(--point-mid); color: white; padding: 12px; box-sizing: border-box; resize: none; margin-bottom: 12px; font-family: inherit; border-radius: 0; }
-        .submit-btn { width: 100%; padding: 15px; background-color: var(--pixel-pink); border: none; font-weight: bold; cursor: pointer; color: white; border-radius: 0; }
+        textarea { width: 100%; height: 80px; background: #000; border: 1px solid var(--point-mid); color: white; padding: 12px; box-sizing: border-box; resize: none; margin-bottom: 12px; font-family: inherit; border-radius: 0; flex-shrink: 0; }
+        .submit-btn { width: 100%; padding: 15px; background-color: var(--pixel-pink); border: none; font-weight: bold; cursor: pointer; color: white; border-radius: 0; flex-shrink: 0; }
+        
         .feed-item { background: #1A1D1D; padding: 15px; margin-bottom: 15px; border: 1px solid var(--point-mid); text-align: left; border-radius: 0; }
         .feed-header { display: flex; justify-content: space-between; font-size: 0.8rem; color: #777; margin-bottom: 10px; }
         .feed-img { width: 100%; max-height: 300px; object-fit: cover; margin-bottom: 10px; border: 1px solid #000; border-radius: 0; }
         .feed-footer button { color: var(--point-light) !important; }
 
-        /* --- [개인 탭] --- */
         .personal-card { 
             background: #1A1D1D; padding: 15px; border-radius: 0 !important; 
             display: grid; grid-template-columns: 1fr 1fr; gap: 10px; 
             margin-bottom: 20px; border: 1px solid var(--point-mid); 
         }
         .img-input { background: #000; border: 1px solid var(--point-mid); color: var(--text-main); padding: 12px; font-size: 0.85rem; border-radius: 0 !important; outline: none; box-sizing: border-box; width: 100%; }
-        .add-btn-green { grid-column: span 2; background: var(--point-light); color: #000; border: none; padding: 15px; font-weight: bold; cursor: pointer; border-radius: 0 !important; }
+        .add-btn-green { grid-column: span 2; background: var(--point-light); color: #000; border: none; padding: 15px; font-weight: bold; cursor: pointer; border-radius: 0 !important; flex-shrink: 0; }
         .history-container { background: #1A1D1D; border-radius: 0 !important; overflow: hidden; border: 1px solid var(--point-mid); }
         .history-thead, .history-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 0.5fr; padding: 12px 5px; font-size: 0.75rem; text-align: center; }
         .history-row { border-top: 1px solid var(--point-mid); font-size: 0.85rem; align-items: center; border-radius: 0; }
@@ -148,7 +190,6 @@
             border-top: 10px solid #FFEE58;
         }
 
-        /* --- [리포트 탭] --- */
         .chart-container { height: 100px; background: #000; border-radius: 0 !important; padding: 10px; position: relative; border: 1px solid var(--point-mid); }
         svg { width: 100%; height: 100%; overflow: visible; }
         polyline { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
@@ -176,6 +217,15 @@
 <body>
 
 <div class="phone-container">
+
+    <div id="vitalLoader" class="vital-loader">
+        <div class="pixel-heart">❤️</div>
+        <div class="ecg-container">
+            <div class="ecg-line"></div>
+        </div>
+        <div class="loading-text">SYSTEM VITAL CHECKING...</div>
+    </div>
+
     <div id="loginOverlay" class="login-overlay">
         <div class="login-box">
             <div class="login-title">TOGETHER HEALTH</div>
@@ -199,7 +249,7 @@
     <div id="homePage" class="page active">
         <textarea id="postInput" placeholder="오늘의 식단이나 운동을 기록하세요..."></textarea>
         <button class="submit-btn" onclick="handlePostSubmit()">공유하기</button>
-        <label for="imgFile" id="fileLabel" style="display:block; text-align:center; color:var(--point-light); font-size:0.8rem; cursor:pointer; margin: 15px 0; text-decoration:underline;">📷 사진 첨부하기 (클릭)</label>
+        <label for="imgFile" id="fileLabel" style="display:block; text-align:center; color:var(--point-light); font-size:0.8rem; cursor:pointer; margin: 15px 0; text-decoration:underline; flex-shrink: 0;">📷 사진 첨부하기 (클릭)</label>
         <input type="file" id="imgFile" style="display:none" onchange="handleFileChange()" accept="image/*">
         <div id="feedList" style="margin-top:10px;"></div>
     </div>
@@ -256,13 +306,24 @@
 
 <script>
     let currentUser = null;
-    const passwords = { "소이진": "1234", "김진영": "0000" };
+    const passwords = { "소이진": "3512", "김진영": "2945" };
     let posts = JSON.parse(localStorage.getItem('th_final_posts_v3')) || [];
     let logs = JSON.parse(localStorage.getItem('th_final_logs_v3')) || [];
     let selectedImg = null;
     let lastClickTime = 0;
 
-    window.onload = () => { setAutoDate(); };
+    window.onload = () => { 
+        setAutoDate(); 
+        setTimeout(() => {
+            const loader = document.getElementById('vitalLoader');
+            loader.style.transition = 'opacity 0.5s';
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+                document.getElementById('loginOverlay').style.display = 'flex'; 
+            }, 500);
+        }, 2500);
+    };
 
     function checkLogin() {
         const inputPw = document.getElementById('pwInput').value;
