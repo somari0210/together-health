@@ -396,6 +396,12 @@
     }
 
     document.getElementById('pwInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') checkLogin(); });
+
+    // Service Worker 등록 (PWA 설치 필수 조건)
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+    .then(() => console.log("Service Worker Registered"));
+}
 </script>
 </body>
 </html>
